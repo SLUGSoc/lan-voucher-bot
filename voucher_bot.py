@@ -3,17 +3,17 @@ from discord.ext import commands
 import yaml
 import csv
 
-description = "lan voucher thingymabob"
+DESCRIPTION = "lan voucher thingymabob"
 
 # read token
-token_path = "token.yaml"
-with open(token_path, "r") as token_file:
+TOKEN_PATH = "token.yaml"
+with open(TOKEN_PATH, "r") as token_file:
     token = yaml.safe_load(token_file).get("token")
 
 # read attendee list
-attendee_path = "data/lan_attendees.csv"
+ATTENDEE_PATH = "data/lan_attendees.csv"
 attendees = []
-with open(attendee_path, 'r') as csv_file:
+with open(ATTENDEE_PATH, 'r') as csv_file:
     id_reader = csv.reader(csv_file)
     fields = next(id_reader)
     for row in id_reader:
@@ -36,20 +36,20 @@ with open("data/vouchers.csv", 'r') as csv_file:
         vouchers.append(row)
 
 # initialise file that will contain IDs, names and voucher codes to preserve the original
-voucher_fields = ['id', 'name', 'voucher']
+VOUCHER_FIELDS = ['id', 'name', 'voucher']
 with open("data/voucher_assignments.csv", 'a+', newline='') as csv_file:
     csv_file.seek(0) # https://stackoverflow.com/a/11895272 check if the file is empty before adding the header
     first_char = csv_file.read(1)
     if not first_char:
         label_writer = csv.writer(csv_file)
-        label_writer.writerow(voucher_fields)
+        label_writer.writerow(VOUCHER_FIELDS)
 
 intents = discord.Intents.default()
-intents.guild_messages = False
-intents.message_content = True
+setattr(intents, "guild_messages", False)
+setattr(intents, "message_content", True)
 
 client = discord.Client(intents=intents)
-bot = commands.Bot(command_prefix="$", description=description, intents=intents)
+bot = commands.Bot(command_prefix="$", description=DESCRIPTION, intents=intents)
 
 @bot.event
 async def on_ready():

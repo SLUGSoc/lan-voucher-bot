@@ -1,7 +1,6 @@
 import csv
 
-
-def concat_credentials(input_path):
+def concat_credentials(input_path: str):
     """
     Takes a CSV voucher list from OPNsense and combines the username & password columns, while deleting everything else
 
