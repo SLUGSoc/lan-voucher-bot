@@ -11,7 +11,7 @@ with open(token_path, "r") as token_file:
     token = yaml.safe_load(token_file).get("token")
 
 # read attendee list
-attendee_path = "lan_test_data.csv"
+attendee_path = "data/lan_attendees.csv"
 attendees = []
 with open(attendee_path, 'r') as csv_file:
     id_reader = csv.reader(csv_file)
@@ -28,7 +28,7 @@ print(ids) # debugging
 voucher_enjoyers = [] # discord names of people who have already had a voucher assigned to them
 
 vouchers = [] # list of vouchers to give out
-with open("vouchers.csv", 'r') as csv_file:
+with open("data/vouchers.csv", 'r') as csv_file:
     voucher_reader = csv.reader(csv_file)
 
     fields = next(voucher_reader)
@@ -37,7 +37,7 @@ with open("vouchers.csv", 'r') as csv_file:
 
 # initialise file that will contain IDs, names and voucher codes to preserve the original
 voucher_fields = ['id', 'name', 'voucher']
-with open("voucher_assignments.csv", 'a+', newline='') as csv_file:
+with open("data/voucher_assignments.csv", 'a+', newline='') as csv_file:
     csv_file.seek(0) # https://stackoverflow.com/a/11895272 check if the file is empty before adding the header
     first_char = csv_file.read(1)
     if not first_char:
@@ -66,7 +66,7 @@ async def voucher(ctx, id):
         # make a row containing id, discord name and voucher code (duh)
         voucher_code = vouchers.pop()[0] # take a voucher from the list
         about_to_assign = [id, ctx.author, voucher_code]
-        with open('voucher_assignments.csv', 'a', newline='') as file:
+        with open('data/voucher_assignments.csv', 'a', newline='') as file:
             assignment_writer = csv.writer(file)
             assignment_writer.writerow(about_to_assign)
         voucher_enjoyers.append(ctx.author)
