@@ -1,4 +1,4 @@
-# Voucher Slinger (WIP)
+# The Voucher Slinger (WIP)
 
 A Discord bot made to hand out LAN vouchers to attendees, and note down relevant info in the process.
 
