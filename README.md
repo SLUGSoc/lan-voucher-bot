@@ -3,9 +3,10 @@
 A Discord bot made to hand out LAN vouchers to attendees, and note down relevant info in the process.
 
 ## Data Formats
-- Attendee Data: CSV file with the columns "ID,Name", corresponding to a student ID and student name respectively
-- Vouchers: CSV file with one column for vouchers
-- Voucher Assignments: CSV file with the columns "ID,Name,Voucher" corresponding to a student ID, Discord username and the voucher assigned to that person
+- Attendee Data: CSV file exported from the SU dashbaord with headers `[ID,Name,discord,voucher]`.
+Will be populated with voucher assignment data.
+- Vouchers: CSV file exported from OPNsense with headers `[username,password,vouchergroup,expirytime,validity]`.
+Opened as read-only and usernames & passwords are concatenated on the fly.
 
 ## Usage
 - Make a token.yaml file with the format: `token: "[token here]"`
@@ -13,7 +14,4 @@ A Discord bot made to hand out LAN vouchers to attendees, and note down relevant
 - Run the program and hope nothing blows up
 
 ## Known issues
-- If the bot is restarted:
-    - The same voucher codes will be handed out again because the voucher file is not modified directly
-    - Someone who has already been given a voucher code can receive another
-- The bot stops responding if there are no more vouchers left to hand out
+- None, atm!
